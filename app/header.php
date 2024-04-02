@@ -1,7 +1,6 @@
 <?php if(isset($_SESSION["cart"])){
   
   $items = count($_SESSION["cart"]);
-  if($items == 0){$items = "";}
   } ?>
 <header class="header">
   <div class="container">
@@ -21,7 +20,7 @@
 
         <div class="header__rest">
           <div class="cart-img"><a href="cart.php"></a><span
-              class="<?php if($items ==0){echo "cart-count0";}else{echo "cart-count";} ?>"><?=$items?></span></div>
+              class="<?php echo $items?"cart-count":"cart-count0"?>"><?=$items?></span></div>
           <div class="header__burger">
             <div class="header__burger-content"></div>
           </div>

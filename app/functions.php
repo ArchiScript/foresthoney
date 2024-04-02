@@ -32,46 +32,45 @@ function get_cat()
     return $arr;
 }
 
-function categories_to_string($data)
+
+function render_categories_tree($categories)
 {
-    foreach ($data as $item) {
-        $str = $str . categories_to_template($item);
+    $list ='';
+    foreach ($categories as $category) {
+
+        $list .= "<li>
+       <a href='products.php?category={$category['id']}&pageid=" . md5(time()) . "'>{$category['category_name']}</a>";
+
+    if (!empty($category['children'])) {
+        $list .= "<ul>" . render_categories_tree($category['children']) . "</ul>";
+    }
+
+    $list .= "</li>";
+
+   
 
     }
-    return $str;
+    return $list;
 }
 
-// Шаблон вывода категорий
-
-function categories_to_template($category)
-{
-    ob_start();
-    include 'category_template.php';
-    return ob_get_clean();
-};
 
 // Хлебные крошки
-function breadcrumbs($array, $id)
+
+function generateBreadcrumbs($categories, $id)
 {
-    if (!$id) {
+    if (empty($id) || empty($categories[$id])) {
         return false;
     }
 
-    $count             = count($array);
-    $breadcrumbs_array = array();
-    for ($i = 0; $i <= $count; $i++) {
-        if ($array[$id]) {
-            $breadcrumbs_array[$array[$id]['id']] = $array[$id]['category_name'];
-            $id                                   = $array[$id]['parent_id'];
-
-        } else {
-            break;
-        }
-
+    $breadcrumbs = [];
+    while (!empty($categories[$id])) {
+        $category = $categories[$id];
+        $breadcrumbs[$category['id']] = $category['category_name'];
+        $id = $category['parent_id'];
     }
-    return array_reverse($breadcrumbs_array, true);
-}
 
+    return array_reverse($breadcrumbs, true);
+}
 // Получение ID дочерних категорий
 function cats_id($array, $id)
 {
@@ -80,6 +79,7 @@ function cats_id($array, $id)
     }
 
     foreach ($array as $item) {
+        $data="";
         if ($item['parent_id'] == $id) {
 
             $data .= ($item['id']) . ",";
@@ -93,11 +93,12 @@ function cats_id($array, $id)
 
 function get_product($id){
     if(!$id){
-        return false;}
+        return false;
+    }
 
         $con = new Connection();
         $prodarr=$con->queryObj("SELECT * FROM `honeyproducts`  WHERE `id` = $id");
-        return $prodarr;
+        return $prodarr[0];
     
     
 }

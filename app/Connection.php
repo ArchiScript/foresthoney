@@ -16,7 +16,7 @@ class Connection
             'host'     => 'localhost',
             'db_name'  => 'db-foresthoney',
             'username' => 'root',
-            'password' => 'root',
+            'password' => '',
             'charset'  => 'utf8',
         ];
 

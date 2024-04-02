@@ -6,6 +6,7 @@ require_once "catalog.php";
 if (isset($_GET['product'])) {
     $product_id = (int) $_GET['product'];
     $prod       = get_product($product_id);
+   
 }
 if(empty($_SESSION["cart"])){
   $_SESSION["cart"]= array();
@@ -27,7 +28,7 @@ if(empty($_SESSION["cart"])){
   <link rel="mask-icon" href="img/ico//safari-pinned-tab.svg" color="#5bbad5">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
-  <title><?php echo "Медонос | " . $prod[0]->prodname; ?></title>
+  <title><?php echo "Медонос | " . $prod->prodname; ?></title>
 </head>
 
 <body>
@@ -69,23 +70,24 @@ if(empty($_SESSION["cart"])){
         <div class="product__item">
 
           <div class="product__inner">
-            <div class="product__title section__title"><?=$prod[0]->prodname;?></div>
-            <div class="product__img"><img src="<?=$prod[0]->img;?>" alt=""></div>
-            <div class="product__price"><?=$prod[0]->price;?> р/кг</div>
+            <div class="product__title section__title"><?=$prod->prodname;?></div>
+            <div class="product__img"><img src="<?=$prod->img;?>" alt=""></div>
+            <div class="product__price"><?=$prod->price;?> р/кг</div>
             <div class="product__product-rating">
-              <span class="fa fa-star <?php if ($prod[0]->rating >= 1) {echo "checked";}?>"></span>
-              <span class="fa fa-star <?php if ($prod[0]->rating >= 2) {echo "checked";}?>"></span>
-              <span class="fa fa-star <?php if ($prod[0]->rating >= 3) {echo "checked";}?>"></span>
-              <span class="fa fa-star <?php if ($prod[0]->rating >= 4) {echo "checked";}?>"></span>
-              <span class="fa fa-star <?php if ($prod[0]->rating >= 5) {echo "checked";}?>"></span>
+              <span class="fa fa-star <?php if ($prod->rating >= 1) {echo "checked";}?>"></span>
+              <span class="fa fa-star <?php if ($prod->rating >= 2) {echo "checked";}?>"></span>
+              <span class="fa fa-star <?php if ($prod->rating >= 3) {echo "checked";}?>"></span>
+              <span class="fa fa-star <?php if ($prod->rating >= 4) {echo "checked";}?>"></span>
+              <span class="fa fa-star <?php if ($prod->rating >= 5) {echo "checked";}?>"></span>
             </div>
-            <div class="product__description"><?=$prod[0]->description;?></div>
+            <div class="product__description"><?=$prod->description;?></div>
           </div>
 
 
-          <form method="post" action="cart.php?action=add&id=<?=$prod[0]->id;?>" class="add-form">
-            <input type="hidden" class="form__hidden-id" name="hidden_id" value="<?=$prod[0]->id;?>">
-            <input type="hidden" class="form__hidden-price" name="hidden_price" value="<?=$prod[0]->price;?>">
+          <form method="post" action="cart.php?action=add&id=<?=$prod->id;?>&category=<?=$prod->category_id;?>"
+            class="add-form">
+            <input type="hidden" class="form__hidden-id" name="hidden_id" value="<?=$prod->id;?>">
+            <input type="hidden" class="form__hidden-price" name="hidden_price" value="<?=$prod->price;?>">
             <button id="btn-less" name="less_button">-</button>
             <label for="hinput" id="counting" class="quan-label"></label>
             <input type="hidden" name="quantity" id="hinput" value="">

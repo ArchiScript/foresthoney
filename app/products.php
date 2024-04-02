@@ -1,7 +1,7 @@
 <?php session_start();
 include "functions.php";
 include "catalog.php";
-
+// if($arr){print_r($arr);}
 
 ?>
 <!DOCTYPE html>
@@ -65,7 +65,6 @@ include "catalog.php";
           <div class="products__content">
 
             <?php
-
                   for ($i = 0; $i <= (count($arr) - 1); $i++) { 
                   $prod_category = $arr[$i]->category_id;
                   $prod_id = $arr[$i]->id;

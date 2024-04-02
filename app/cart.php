@@ -132,34 +132,35 @@ if ($count_loc == 0) {echo "Ваша корзина пуста";} elseif ($count
 
           <?php
 if (!empty($_SESSION["cart"])) {
+ 
     $total = 0;
     foreach ($_SESSION["cart"] as $key => $value) {
         $subtotal = 0;
         $chosenprod = get_product($value["product_id"]);
-        
+       
 
         ?>
           <div class="cart__table">
             <div class="cart__item">
               <div class="products__product ">
-                <div class="products__product-img"><img src="<?=$chosenprod[0]->img?>" alt=""></div>
+                <div class="products__product-img"><img src="<?=$chosenprod->img?>" alt=""></div>
                 <div class="products__product-title-group">
-                  <div class="products__product-title"><?=$chosenprod[0]->prodname?>
+                  <div class="products__product-title"><?=$chosenprod->prodname?>
                   </div>
-                  <div class="products__product-subtitle"><?=$chosenprod[0]->harvestdate?></div>
+                  <div class="products__product-subtitle"><?=$chosenprod->harvestdate?></div>
                 </div>
                 <div class="products__product-price-group">
                   <div class="products__product-rating">
-                    <span class="fa fa-star <?php if ($chosenprod[0]->rating >= 1) {echo "checked";}?>"></span>
-                    <span class="fa fa-star <?php if ($chosenprod[0]->rating >= 2) {echo "checked";}?>"></span>
-                    <span class="fa fa-star <?php if ($chosenprod[0]->rating >= 3) {echo "checked";}?>"></span>
-                    <span class="fa fa-star <?php if ($chosenprod[0]->rating >= 4) {echo "checked";}?>"></span>
-                    <span class="fa fa-star <?php if ($chosenprod[0]->rating >= 5) {echo "checked";}?>"></span>
+                    <span class="fa fa-star <?php if ($chosenprod->rating >= 1) {echo "checked";}?>"></span>
+                    <span class="fa fa-star <?php if ($chosenprod->rating >= 2) {echo "checked";}?>"></span>
+                    <span class="fa fa-star <?php if ($chosenprod->rating >= 3) {echo "checked";}?>"></span>
+                    <span class="fa fa-star <?php if ($chosenprod->rating >= 4) {echo "checked";}?>"></span>
+                    <span class="fa fa-star <?php if ($chosenprod->rating >= 5) {echo "checked";}?>"></span>
                   </div>
-                  <div class="products__product-price"><?=$chosenprod[0]->price?> р/кг</div>
+                  <div class="products__product-price"><?=$chosenprod->price?> р/кг</div>
                   <div
-                    class="products__product-stock <?php if ($chosenprod[0]->stock < 3) {echo "out-ofstock";} else {echo "in-stock";}?>"><?php
-                    if ($chosenprod[0]->stock < 3) {echo "заканчивается";} else {echo "в наличии";}
+                    class="products__product-stock <?php if ($chosenprod->stock < 3) {echo "out-ofstock";} else {echo "in-stock";}?>"><?php
+                    if ($chosenprod->stock < 3) {echo "заканчивается";} else {echo "в наличии";}
                       ?>
 
                   </div>
